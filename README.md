@@ -25,6 +25,16 @@ You can also define terms:
 ~> a
 ```
 
+You can even use numbers:
+
+```
+>: suc = \n.\f.\a.f (n f a)
+~> defined suc
+
+>: suc 5
+~> \f.\a.f (f (f (f (f (f a)))))
+```
+
 Captivating
 
 Contributing
