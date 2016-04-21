@@ -19,7 +19,7 @@ namespace HackyLambdas
 				if (input.ToLower() == "end") break;
 				else if (input.ToLower() == "log")
 				{
-					var logName = "lambdalog " + DateTime.Now + ".log";
+					var logName = "lambdalog " + string.Format("{0:yyyy_MM_dd_HH_mm_ss}", DateTime.Now) + ".log";
 					using (StreamWriter writer = new StreamWriter(logName))
 					{
 						writer.Write(log);
