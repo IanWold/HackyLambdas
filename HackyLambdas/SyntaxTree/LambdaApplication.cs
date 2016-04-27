@@ -23,9 +23,6 @@
 		/// <returns>True if a beta reduction happened, false if not</returns>
 		public override bool BetaReduce()
 		{
-			//Tell both sides to b-reduce
-			var toReturn = First.BetaReduce() | Second.BetaReduce();
-			
 			if (First.GetType() == typeof(LambdaFunction))
 			{ //If the left-hand side of an application is a function, then b-reduction can happen, woo
 				var toReduce = (First as LambdaFunction);
@@ -68,7 +65,32 @@
 				//We have, indeed, performed a b-reduction
 				return true;
 			}
-			else return toReturn;
+			else
+			{
+				bool toReturn;
+
+				try
+				{
+					//Tell both sides to b-reduce
+					toReturn = First.BetaReduce() | Second.BetaReduce();
+				}
+				catch
+				{
+					return true;
+				}
+
+				return toReturn;
+			}
+		}
+
+		public override void MakeAlphaEquivalent(LambdaTerm term)
+		{
+			if (term.GetType() == typeof(LambdaApplication))
+			{
+				First.MakeAlphaEquivalent((term as LambdaApplication).First);
+				Second.MakeAlphaEquivalent((term as LambdaApplication).Second);
+			}
+			else return;
 		}
 
 		/// <summary>

@@ -23,7 +23,14 @@
 		/// <returns></returns>
 		public override bool BetaReduce()
 		{
-			return Output.BetaReduce();
+			try
+			{
+				return Output.BetaReduce();
+			}
+			catch
+			{
+				return true;
+			}
 		}
 
 		/// <summary>
@@ -38,6 +45,20 @@
 			{
 				return Parent == null ? false : Parent.IsBound(variable);
 			}
+		}
+
+		public override void MakeAlphaEquivalent(LambdaTerm term)
+		{
+			if (term.GetType() == typeof(LambdaFunction))
+			{
+				//var next = new LambdaExpression((term as LambdaFunction).Output).Root;
+				//next.Replace((term as LambdaFunction).Input, this.Input);
+				(term as LambdaFunction).Input = this.Input;
+				//(term as LambdaFunction).Output = next;
+
+				Output.MakeAlphaEquivalent((term as LambdaFunction).Output);
+			}
+			else return;
 		}
 
 		/// <summary>

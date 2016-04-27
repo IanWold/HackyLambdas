@@ -19,6 +19,14 @@ namespace HackyLambdas
 			return Line.Parse(input);
 		}
 
+		public static void ParseDefinition(string input)
+		{
+			if (input != null && input != "")
+			{
+				LDefinition.Parse(input);
+			}
+		}
+
 		/// <summary>
 		/// Parses a lambda expression
 		/// </summary>

@@ -20,7 +20,14 @@
 			//Loop until we can b-reduce no more
 			while (toEnd)
 			{
-				toEnd = Root.BetaReduce();
+				try
+				{
+					toEnd = Root.BetaReduce();
+				}
+				catch
+				{
+					toEnd = true;
+				}
 			}
 
 			return false;

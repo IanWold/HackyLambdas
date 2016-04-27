@@ -12,6 +12,8 @@
 
 		public virtual bool IsBound(string variable) { return false; }
 
+		public virtual void MakeAlphaEquivalent(LambdaTerm term) { }
+
 		internal virtual void Replace(LambdaVariable what, LambdaTerm with) { }
 	}
 }
