@@ -8,9 +8,10 @@
 	{
 		public LambdaVariable Variable;
 
-		public LambdaDeclaration(LambdaVariable lVar)
+		public LambdaDeclaration(LambdaVariable lVar, LambdaType termType)
 		{
 			Variable = lVar;
+			TermType = termType;
 		}
 
 		public override string ToString()

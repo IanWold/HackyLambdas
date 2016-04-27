@@ -8,6 +8,8 @@
 	{
 		public LambdaTerm Parent = null;
 
+		public LambdaType TermType = null;
+
 		public virtual bool BetaReduce() { return false; }
 
 		public virtual bool IsBound(string variable) { return false; }

@@ -66,6 +66,9 @@
     <Compile Include="SyntaxTree\LambdaFunction.cs" />
     <Compile Include="LambdaParser.cs" />
     <Compile Include="SyntaxTree\LambdaTerm.cs" />
+    <Compile Include="SyntaxTree\LambdaType\LambdaTypeArrow.cs" />
+    <Compile Include="SyntaxTree\LambdaType\LambdaType.cs" />
+    <Compile Include="SyntaxTree\LambdaType\LambdaTypeVariable.cs" />
     <Compile Include="SyntaxTree\LambdaVariable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

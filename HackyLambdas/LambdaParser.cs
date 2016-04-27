@@ -49,11 +49,25 @@ namespace HackyLambdas
 		//Parses a single letter into a LambdaVariable
 		static readonly Parser<LambdaVariable> LVariable = Parse.Letter.Once().Text().Select(s => new LambdaVariable(s));
 
+		static readonly Parser<LambdaType> LTypeVariable = Parse.Letter.Once().Text().Select(s => new LambdaTypeVariable(s));
+
+		static readonly Parser<LambdaType> LTypeFactor =
+			(from lparen in Parse.Char('(')
+			 from term in Parse.Ref(() => LType)
+			 from rparen in Parse.Char(')')
+			 select term)
+			.Or(LTypeVariable);
+		
+		static readonly Parser<LambdaType> LType =
+			Parse.ChainRightOperator(Parse.Char('>'), LTypeFactor, (op, first, second) => new LambdaTypeArrow(first, second));
+
 		//Parses the "input" part of a lambda function
 		static readonly Parser<LambdaDeclaration> LDeclaration =
 			from lam in Parse.Char('\\')
 			from lVar in LVariable
-			select new LambdaDeclaration(lVar);
+			from colon in Parse.Char(':')
+			from lType in LType
+			select new LambdaDeclaration(lVar, lType);
 
 		//Parses a term in parentheses or several other parsers above
 		static readonly Parser<LambdaTerm> LFactor =

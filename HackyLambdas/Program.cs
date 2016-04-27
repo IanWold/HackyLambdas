@@ -14,7 +14,7 @@ namespace HackyLambdas
 			var initialTerms = "";
 			using (var reader = new StreamReader(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\Definitions.txt"))
 			{
-				initialTerms = reader.ReadToEnd();
+				//initialTerms = reader.ReadToEnd();
 			}
 
 			foreach (var t in initialTerms.Split(new char[] { '\r', '\n'}))
