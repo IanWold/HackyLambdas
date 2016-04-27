@@ -62,12 +62,12 @@ namespace HackyLambdas
 			Parse.ChainRightOperator(Parse.Char('>'), LTypeFactor, (op, first, second) => new LambdaTypeArrow(first, second));
 
 		//Parses the "input" part of a lambda function
-		static readonly Parser<LambdaDeclaration> LDeclaration =
+		static readonly Parser<LambdaVariable> LDeclaration =
 			from lam in Parse.Char('\\')
 			from lVar in LVariable
 			from colon in Parse.Char(':')
 			from lType in LType
-			select new LambdaDeclaration(lVar, lType);
+			select new LambdaVariable(lVar.Name, lType);
 
 		//Parses a term in parentheses or several other parsers above
 		static readonly Parser<LambdaTerm> LFactor =
@@ -85,7 +85,7 @@ namespace HackyLambdas
 		static readonly Parser<LambdaTerm> LTermApplication = Parse.ChainOperator(Parse.Char(' '), LFactor, (op, first, second) => new LambdaApplication(first, second));
 		static readonly Parser<LambdaTerm> LTermFunction = Parse.ChainRightOperator(Parse.Char('.'), LTermApplication, (op, first, second) =>
 		{
-			if (first.GetType() == typeof(LambdaDeclaration)) return new LambdaFunction((first as LambdaDeclaration).Variable, second);
+			if (first.GetType() == typeof(LambdaVariable)) return new LambdaFunction((first as LambdaVariable), second);
 			else throw new ParseException("Something went funny - first is: " + first.ToString());
 		});
 
