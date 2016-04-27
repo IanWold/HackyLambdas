@@ -10,6 +10,11 @@
 			Name = name;
 		}
 
+		public LambdaVariable(string name, LambdaType termType)
+		{
+			TermType = termType;
+		}
+
 		public bool IsBound()
 		{
 			return Parent == null ? false : Parent.IsBound(Name);
