@@ -64,7 +64,12 @@
 			}
 		}
 
-		public override string ToString()
+        public override LambdaType GetTermType()
+        {
+            return TermType;
+        }
+
+        public override string ToString()
 		{
 			return Name;
 		}

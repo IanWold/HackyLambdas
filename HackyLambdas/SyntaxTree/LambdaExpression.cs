@@ -38,7 +38,12 @@
 			Root.Replace(what, with);
 		}
 
-		public override string ToString()
+        public override LambdaType GetTermType()
+        {
+            return Root.GetTermType();
+        }
+
+        public override string ToString()
 		{
 			return Root.ToString();
 		}

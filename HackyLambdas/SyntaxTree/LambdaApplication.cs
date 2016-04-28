@@ -114,11 +114,25 @@
 			return Parent == null ? false : Parent.IsBound(variable);
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns>An appropriate string representation of the object</returns>
-		public override string ToString()
+        public override LambdaType GetTermType()
+        {
+            LambdaType firstTermType = First.GetTermType();
+            if (firstTermType.GetType() == typeof(LambdaTypeArrow))
+            {
+                LambdaTypeArrow firstTermTypeArrow = firstTermType as LambdaTypeArrow;
+                return firstTermTypeArrow.Second;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>An appropriate string representation of the object</returns>
+        public override string ToString()
 		{
 			var firstString = First.GetType() == typeof(LambdaVariable) ? First.ToString() : "(" + First.ToString() + ")";
 			var secondString = Second.GetType() == typeof(LambdaVariable) ? Second.ToString() : "(" + Second.ToString() + ")";

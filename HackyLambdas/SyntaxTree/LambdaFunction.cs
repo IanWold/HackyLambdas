@@ -1,4 +1,6 @@
-﻿namespace HackyLambdas
+﻿using System.Collections.Generic;
+
+namespace HackyLambdas
 {
 	public class LambdaFunction : LambdaTerm
 	{
@@ -71,11 +73,23 @@
 			Output.Replace(what, with);
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns>A nice string representation of the object</returns>
-		public override string ToString()
+        public override LambdaType GetTermType()
+        {
+            return Output.GetTermType();
+        }
+
+        public override List<string> GenConstraints()
+        {
+            List<string> constraints = Output.GenConstraints();
+
+            return constraints;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>A nice string representation of the object</returns>
+        public override string ToString()
 		{
 			return "\\" + Input.ToString() + "." + Output.ToString();
 		}

@@ -62,7 +62,6 @@
   <ItemGroup>
     <Compile Include="SyntaxTree\LambdaExpression.cs" />
     <Compile Include="SyntaxTree\LambdaApplication.cs" />
-    <Compile Include="SyntaxTree\LambdaDeclaration.cs" />
     <Compile Include="SyntaxTree\LambdaFunction.cs" />
     <Compile Include="LambdaParser.cs" />
     <Compile Include="SyntaxTree\LambdaTerm.cs" />

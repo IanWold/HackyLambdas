@@ -1,4 +1,6 @@
-﻿namespace HackyLambdas
+﻿using System.Collections.Generic;
+
+namespace HackyLambdas
 {
 	/// <summary>
 	/// A base type for everything the parser constructs
@@ -17,5 +19,9 @@
 		public virtual void MakeAlphaEquivalent(LambdaTerm term) { }
 
 		internal virtual void Replace(LambdaVariable what, LambdaTerm with) { }
-	}
+
+        public virtual LambdaType GetTermType() { return TermType; }
+
+        public virtual List<string> GenConstraints() { return new List<string>(); }
+    }
 }

@@ -38,7 +38,7 @@ namespace HackyLambdas
 
 					Process.Start(logName);
 				}
-				if (input.ToLower() == "terms")
+				else if (input.ToLower() == "terms")
 				{
 					foreach (var t in RuntimeEnvironment.Terms)
 					{
@@ -46,7 +46,7 @@ namespace HackyLambdas
 					}
 					Console.WriteLine();
 				}
-				if (input.ToLower() == "alpha")
+				else if (input.ToLower() == "alpha")
 				{
 					Console.Write("1> ");
 					var one = Console.ReadLine();
@@ -66,10 +66,12 @@ namespace HackyLambdas
 
 					Console.WriteLine("~> " + inp);
 					log += "\r\n~> " + inp;
-					Console.WriteLine();
-					log += "\r\n";
-				}
-			}
+                    Console.WriteLine();
+                    log += "\r\nType: ";
+                    Console.WriteLine(inp.GetTermType());
+                    log += "\r\n";
+                }
+            }
 		}
 	}
 
