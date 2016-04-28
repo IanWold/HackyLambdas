@@ -12,6 +12,7 @@
 
 		public LambdaVariable(string name, LambdaType termType)
 		{
+			Name = name;
 			TermType = termType;
 		}
 
@@ -69,7 +70,12 @@
             return TermType;
         }
 
-        public override string ToString()
+		public override int GetDeBruijnIndex(string name = "")
+		{
+			return Parent.GetDeBruijnIndex(Name);
+		}
+
+		public override string ToString()
 		{
 			return Name;
 		}
