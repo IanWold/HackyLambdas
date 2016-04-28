@@ -16,6 +16,8 @@
 
 		public virtual void MakeAlphaEquivalent(LambdaTerm term) { }
 
+		public virtual int GetDeBruijnIndex(string name = "") { return -1; }
+
 		internal virtual void Replace(LambdaVariable what, LambdaTerm with) { }
 	}
 }

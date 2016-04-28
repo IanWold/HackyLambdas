@@ -114,6 +114,11 @@
 			return Parent == null ? false : Parent.IsBound(variable);
 		}
 
+		public override int GetDeBruijnIndex(string name = "")
+		{
+			return Parent.GetDeBruijnIndex(name);
+		}
+
 		/// <summary>
 		/// 
 		/// </summary>

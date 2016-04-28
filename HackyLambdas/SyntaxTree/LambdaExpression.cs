@@ -1,4 +1,6 @@
-﻿namespace HackyLambdas
+﻿using System.Collections.Generic;
+
+namespace HackyLambdas
 {
 	/// <summary>
 	/// Provides a parent for the Root term
@@ -36,6 +38,18 @@
 		internal override void Replace(LambdaVariable what, LambdaTerm with)
 		{
 			Root.Replace(what, with);
+		}
+
+		private List<string> FreeVariables = new List<string>();
+
+		public override int GetDeBruijnIndex(string name = "")
+		{
+			if (!FreeVariables.Contains(name))
+			{
+				FreeVariables.Add(name);
+			}
+
+			return -1 - (FreeVariables.IndexOf(name));
 		}
 
 		public override string ToString()

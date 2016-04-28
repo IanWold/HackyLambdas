@@ -71,6 +71,19 @@
 			Output.Replace(what, with);
 		}
 
+		public override int GetDeBruijnIndex(string name = "")
+		{
+			if (name == Input.Name)
+			{
+				return 0;
+			}
+			else
+			{
+				var parentDeBruijn = Parent.GetDeBruijnIndex(name);
+				return parentDeBruijn < 0 ? parentDeBruijn : parentDeBruijn + 1;
+			}
+		}
+
 		/// <summary>
 		/// 
 		/// </summary>
