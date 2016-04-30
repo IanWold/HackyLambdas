@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace HackyLambdas
 {
@@ -13,6 +14,8 @@ namespace HackyLambdas
 		{
 			root.Parent = this;
 			Root = root;
+
+            Root.SetFreeType(Root.GetTypesUsed(), new List<LambdaVariable>());
 		}
 
 		public override bool BetaReduce()
@@ -45,7 +48,12 @@ namespace HackyLambdas
             return Root.GetTermType();
         }
 
-		private List<string> FreeVariables = new List<string>();
+        public override Tuple<List<string>, List<string>> GenConstraints()
+        {
+            return Root.GenConstraints();
+        }
+
+        private List<string> FreeVariables = new List<string>();
 
 		public override int GetDeBruijnIndex(string name = "")
 		{

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System;
 
 namespace HackyLambdas
@@ -21,11 +20,30 @@ namespace HackyLambdas
 			Second = second;
 		}
 
-		/// <summary>
-		/// Recursively tells First and Second to b-reduce, then beta reduces this application
-		/// </summary>
-		/// <returns>True if a beta reduction happened, false if not</returns>
-		public override bool BetaReduce()
+        public override void SetType(LambdaVariable varName)
+        {
+            First.SetType(varName);
+            Second.SetType(varName);
+        }
+
+        public override void SetFreeType(List<string> typesUsed, List<LambdaVariable> freeTypesUsed)
+        {
+            First.SetFreeType(typesUsed, freeTypesUsed);
+            Second.SetFreeType(typesUsed, freeTypesUsed);
+        }
+
+        public override List<string> GetTypesUsed()
+        {
+            List<string> typesUsed = First.GetTypesUsed();
+            typesUsed.AddRange(Second.GetTypesUsed());
+            return typesUsed;
+        }
+
+        /// <summary>
+        /// Recursively tells First and Second to b-reduce, then beta reduces this application
+        /// </summary>
+        /// <returns>True if a beta reduction happened, false if not</returns>
+        public override bool BetaReduce()
 		{
 			if (First.GetType() == typeof(LambdaFunction))
 			{ //If the left-hand side of an application is a function, then b-reduction can happen, woo
@@ -125,15 +143,15 @@ namespace HackyLambdas
         public override Tuple<List<string>, List<string>> GenConstraints()
         {
             Tuple<List<string>, List<string>> firstConstraintsAndTypesUsed = First.GenConstraints();
-            List<string> firstConstraints = firstConstraintsAndTypesUsed.Item1;
-            List<string> firstTypesUsed = firstConstraintsAndTypesUsed.Item2;
+            List<string> constraints = firstConstraintsAndTypesUsed.Item1;
+            List<string> typesUsed = firstConstraintsAndTypesUsed.Item2;
 
             Tuple<List<string>, List<string>> secondConstraintsAndTypesUsed = First.GenConstraints();
             List<string> secondConstraints = secondConstraintsAndTypesUsed.Item1;
             List<string> secondTypesUsed = secondConstraintsAndTypesUsed.Item2;
 
-            List<string> constraints = firstConstraints.Concat(secondConstraints) as List<string>;
-            List<string> typesUsed = firstTypesUsed.Concat(secondTypesUsed) as List<string>;
+            constraints.AddRange(secondConstraints);
+            typesUsed.AddRange(secondTypesUsed);
 
             // Generate a new constraint variable that is not yet used for this var
             int i;
@@ -146,10 +164,6 @@ namespace HackyLambdas
             return new Tuple<List<string>, List<string>>(constraints, typesUsed);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>An appropriate string representation of the object</returns>
 		public override int GetDeBruijnIndex(string name = "")
 		{
 			return Parent.GetDeBruijnIndex(name);

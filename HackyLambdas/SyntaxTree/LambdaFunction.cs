@@ -18,13 +18,28 @@ namespace HackyLambdas
 
 			Input = input;
 			Output = output;
+
+            output.SetType(input);
 		}
 
-		/// <summary>
-		/// If the function gets a call to perform a beta-reduce, just pass it on
-		/// </summary>
-		/// <returns></returns>
-		public override bool BetaReduce()
+        public override void SetFreeType(List<string> typesUsed, List<LambdaVariable> freeTypesUsed)
+        {
+            Input.SetFreeType(typesUsed, freeTypesUsed);
+            Output.SetFreeType(typesUsed, freeTypesUsed);
+        }
+
+        public override List<string> GetTypesUsed()
+        {
+            List<string> typesUsed = Input.GetTypesUsed();
+            typesUsed.AddRange(Output.GetTypesUsed());
+            return typesUsed;
+        }
+
+        /// <summary>
+        /// If the function gets a call to perform a beta-reduce, just pass it on
+        /// </summary>
+        /// <returns></returns>
+        public override bool BetaReduce()
 		{
 			try
 			{
