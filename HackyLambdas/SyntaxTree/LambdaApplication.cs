@@ -87,16 +87,6 @@ namespace HackyLambdas
 			}
 		}
 
-		public override void MakeAlphaEquivalent(LambdaTerm term)
-		{
-			if (term.GetType() == typeof(LambdaApplication))
-			{
-				First.MakeAlphaEquivalent((term as LambdaApplication).First);
-				Second.MakeAlphaEquivalent((term as LambdaApplication).Second);
-			}
-			else return;
-		}
-
 		/// <summary>
 		/// Passes it on
 		/// </summary>
@@ -160,12 +150,26 @@ namespace HackyLambdas
         /// 
         /// </summary>
         /// <returns>An appropriate string representation of the object</returns>
-        public override string ToString()
+		public override int GetDeBruijnIndex(string name = "")
+		{
+			return Parent.GetDeBruijnIndex(name);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns>An appropriate string representation of the object</returns>
+		public override string ToString()
 		{
 			var firstString = First.GetType() == typeof(LambdaVariable) ? First.ToString() : "(" + First.ToString() + ")";
 			var secondString = Second.GetType() == typeof(LambdaVariable) ? Second.ToString() : "(" + Second.ToString() + ")";
 
 			return firstString + " " + secondString;
+		}
+
+		public override string PrintDeBruijn()
+		{
+			return First.PrintDeBruijn() + " " + Second.PrintDeBruijn();
 		}
 	}
 }

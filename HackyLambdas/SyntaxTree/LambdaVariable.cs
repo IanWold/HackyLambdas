@@ -24,15 +24,6 @@ namespace HackyLambdas
 			return Parent == null ? false : Parent.IsBound(Name);
 		}
 
-		public override void MakeAlphaEquivalent(LambdaTerm term)
-		{
-			if (term.GetType() == typeof(LambdaVariable))
-			{
-				(term as LambdaVariable).Name = Name;
-			}
-			else return;
-		}
-
 		/// <summary>
 		/// If this is a variable with ought be replaced with another expression in a b-reduction, do so
 		/// </summary>
@@ -91,7 +82,12 @@ namespace HackyLambdas
 
         public override string ToString()
 		{
-			return Name;
+			return Name + ":" + TermType?.ToString() ?? "?";
+		}
+
+		public override string PrintDeBruijn()
+		{
+			return GetDeBruijnIndex().ToString();
 		}
 	}
 }

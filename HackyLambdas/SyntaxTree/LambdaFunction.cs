@@ -50,20 +50,6 @@ namespace HackyLambdas
 			}
 		}
 
-		public override void MakeAlphaEquivalent(LambdaTerm term)
-		{
-			if (term.GetType() == typeof(LambdaFunction))
-			{
-				//var next = new LambdaExpression((term as LambdaFunction).Output).Root;
-				//next.Replace((term as LambdaFunction).Input, this.Input);
-				(term as LambdaFunction).Input = this.Input;
-				//(term as LambdaFunction).Output = next;
-
-				Output.MakeAlphaEquivalent((term as LambdaFunction).Output);
-			}
-			else return;
-		}
-
 		/// <summary>
 		/// Passes it on
 		/// </summary>
@@ -96,13 +82,31 @@ namespace HackyLambdas
             return new Tuple<List<string>, List<string>>(constraints, typesUsed);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>A nice string representation of the object</returns>
-        public override string ToString()
+        public override int GetDeBruijnIndex(string name = "")
+		{
+			if (name == Input.Name)
+			{
+				return 0;
+			}
+			else
+			{
+				var parentDeBruijn = Parent.GetDeBruijnIndex(name);
+				return parentDeBruijn < 0 ? parentDeBruijn : parentDeBruijn + 1;
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns>A nice string representation of the object</returns>
+		public override string ToString()
 		{
 			return "\\" + Input.ToString() + "." + Output.ToString();
+		}
+
+		public override string PrintDeBruijn()
+		{
+			return "\\." + Output.PrintDeBruijn();
 		}
 	}
 }

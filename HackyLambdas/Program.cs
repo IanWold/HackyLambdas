@@ -46,17 +46,6 @@ namespace HackyLambdas
 					}
 					Console.WriteLine();
 				}
-				else if (input.ToLower() == "alpha")
-				{
-					Console.Write("1> ");
-					var one = Console.ReadLine();
-					Console.Write("2> ");
-					var two = Console.ReadLine();
-					Console.WriteLine(">> " + (RuntimeEnvironment.IsAlphaEquivalent(one, two) ?
-						"These terms are alpha-equivalent." :
-						"These terms are NOT alpha-equivalent.")
-						);
-				}
 				else
 				{
 					log += ">: " + input;
@@ -83,16 +72,5 @@ namespace HackyLambdas
 	{
 		public static Dictionary<string, string> Terms = new Dictionary<string, string>();
 
-		public static bool IsAlphaEquivalent(string first, string second)
-		{
-			var First = LambdaParser.ParseTerm(first).Root;
-			var Second = LambdaParser.ParseTerm(second).Root;
-
-			First.MakeAlphaEquivalent(Second);
-			Debug.WriteLine(First.ToString());
-			Debug.WriteLine(Second.ToString());
-
-			return first.ToString() == second.ToString();
-		}
 	}
 }
