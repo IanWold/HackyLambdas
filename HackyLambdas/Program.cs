@@ -40,7 +40,7 @@ namespace HackyLambdas
 				}
 				else if (input.ToLower() == "debruijn")
 				{
-					Console.Write("db>:");
+					Console.Write("db>: ");
 					var inp = LambdaParser.ParseLine(Console.ReadLine());
 
 					Console.WriteLine("~db> " + inp.PrintDeBruijn());
@@ -48,12 +48,12 @@ namespace HackyLambdas
 				}
 				else if (input.ToLower() == "alpha")
 				{
-					Console.Write("α1>:");
+					Console.Write("α1>: ");
 					var inp1 = LambdaParser.ParseLine(Console.ReadLine()).PrintDeBruijn();
-					Console.Write("α2>:");
+					Console.Write("α2>: ");
 					var inp2 = LambdaParser.ParseLine(Console.ReadLine()).PrintDeBruijn();
 
-					Console.WriteLine("~α >" + (inp1 == inp2 ? "true" : "false"));
+					Console.WriteLine("~α > " + (inp1 == inp2 ? "true" : "false"));
 				}
 				else if (input.ToLower() == "terms")
 				{
