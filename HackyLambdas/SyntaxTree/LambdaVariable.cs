@@ -19,7 +19,42 @@ namespace HackyLambdas
 			TermType = termType;
 		}
 
-		public bool IsBound()
+        public override void SetType(LambdaVariable varName)
+        {
+            if (Name == varName.Name)
+            {
+                TermType = varName.TermType;
+            }
+        }
+
+        public override void SetFreeType(List<string> typesUsed, List<LambdaVariable> freeTypesUsed)
+        {
+            if (TermType != null)
+            {
+                return;
+            }
+
+
+            // generate new variable type name
+            int i;
+            for (i = 0; typesUsed.Contains("T" + i); i++) ;
+            TermType = new LambdaTypeVariable("T" + i);
+            typesUsed.Add(TermType.ToString());
+
+            freeTypesUsed.Add(this);
+        }
+
+        public override List<string> GetTypesUsed()
+        {
+            List<string> typesUsed = new List<string>();
+            if (TermType != null)
+            {
+                typesUsed.Add(TermType.ToString());
+            }
+            return typesUsed;
+        }
+
+        public bool IsBound()
 		{
 			return Parent == null ? false : Parent.IsBound(Name);
 		}

@@ -13,7 +13,13 @@ namespace HackyLambdas
 
 		public LambdaType TermType = null;
 
-		public virtual bool BetaReduce() { return false; }
+        public virtual void SetType(LambdaVariable varName) { }
+
+        public virtual void SetFreeType(List<string> typesUsed, List<LambdaVariable> freeTypesUsed) { }
+
+        public virtual List<string> GetTypesUsed() { return null; }
+
+        public virtual bool BetaReduce() { return false; }
 
 		public virtual bool IsBound(string variable) { return false; }
 
