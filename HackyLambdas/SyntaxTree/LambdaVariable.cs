@@ -72,13 +72,11 @@ namespace HackyLambdas
 
             return new Tuple<List<string>, List<string>>(constraints, typesUsed);
         }
-
-        /*
+		
 		public override int GetDeBruijnIndex(string name = "")
 		{
 			return Parent.GetDeBruijnIndex(Name);
 		}
-        */
 
         public override string ToString()
 		{

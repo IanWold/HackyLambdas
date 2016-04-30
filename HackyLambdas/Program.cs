@@ -38,6 +38,23 @@ namespace HackyLambdas
 
 					Process.Start(logName);
 				}
+				else if (input.ToLower() == "debruijn")
+				{
+					Console.Write("db>:");
+					var inp = LambdaParser.ParseLine(Console.ReadLine());
+
+					Console.WriteLine("~db> " + inp.PrintDeBruijn());
+					log += "\r\n~db> " + inp.PrintDeBruijn();
+				}
+				else if (input.ToLower() == "alpha")
+				{
+					Console.Write("α1>:");
+					var inp1 = LambdaParser.ParseLine(Console.ReadLine()).PrintDeBruijn();
+					Console.Write("α2>:");
+					var inp2 = LambdaParser.ParseLine(Console.ReadLine()).PrintDeBruijn();
+
+					Console.WriteLine("~α >" + (inp1 == inp2 ? "true" : "false"));
+				}
 				else if (input.ToLower() == "terms")
 				{
 					foreach (var t in RuntimeEnvironment.Terms)
