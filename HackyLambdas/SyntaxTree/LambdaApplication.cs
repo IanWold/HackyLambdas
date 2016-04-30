@@ -1,4 +1,8 @@
-﻿namespace HackyLambdas
+﻿using System.Collections.Generic;
+using System.Linq;
+using System;
+
+namespace HackyLambdas
 {
 	public class LambdaApplication : LambdaTerm
 	{
@@ -126,6 +130,30 @@
             {
                 return null;
             }
+        }
+
+        public override Tuple<List<string>, List<string>> GenConstraints()
+        {
+            Tuple<List<string>, List<string>> firstConstraintsAndTypesUsed = First.GenConstraints();
+            List<string> firstConstraints = firstConstraintsAndTypesUsed.Item1;
+            List<string> firstTypesUsed = firstConstraintsAndTypesUsed.Item2;
+
+            Tuple<List<string>, List<string>> secondConstraintsAndTypesUsed = First.GenConstraints();
+            List<string> secondConstraints = secondConstraintsAndTypesUsed.Item1;
+            List<string> secondTypesUsed = secondConstraintsAndTypesUsed.Item2;
+
+            List<string> constraints = firstConstraints.Concat(secondConstraints) as List<string>;
+            List<string> typesUsed = firstTypesUsed.Concat(secondTypesUsed) as List<string>;
+
+            // Generate a new constraint variable that is not yet used for this var
+            int i;
+            for (i = 0; typesUsed.Contains("C" + i); i++);
+            TermType = new LambdaTypeVariable("C" + i);
+
+            constraints.Add(String.Format("{0}={1}>{2}", First.TermType, Second.TermType, TermType));
+            typesUsed.Add(TermType.ToString());
+
+            return new Tuple<List<string>, List<string>>(constraints, typesUsed);
         }
 
         /// <summary>

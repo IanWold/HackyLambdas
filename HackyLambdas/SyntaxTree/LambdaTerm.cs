@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace HackyLambdas
 {
@@ -22,6 +23,6 @@ namespace HackyLambdas
 
         public virtual LambdaType GetTermType() { return TermType; }
 
-        public virtual List<string> GenConstraints() { return new List<string>(); }
+        public virtual Tuple<List<string>, List<string>> GenConstraints() { return null; }
     }
 }

@@ -63,12 +63,13 @@ namespace HackyLambdas
 
 					var inp = LambdaParser.ParseLine(input);
 					inp.BetaReduce();
+                    inp.GenConstraints();
 
 					Console.WriteLine("~> " + inp);
 					log += "\r\n~> " + inp;
-                    Console.WriteLine();
+                    Console.WriteLine("Type:");
                     log += "\r\nType: ";
-                    Console.WriteLine(inp.GetTermType());
+                    Console.WriteLine(inp.TermType);
                     log += "\r\n";
                 }
             }

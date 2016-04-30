@@ -1,4 +1,7 @@
-﻿namespace HackyLambdas
+﻿using System.Collections.Generic;
+using System;
+
+namespace HackyLambdas
 {
 	public class LambdaVariable : LambdaTerm
 	{
@@ -70,6 +73,15 @@
             return TermType;
         }
 
+        public override Tuple<List<string>, List<string>> GenConstraints()
+        {
+            List<string> constraints = new List<string>();
+            List<string> typesUsed = new List<string>();
+            typesUsed.Add(TermType.ToString());
+
+            return new Tuple<List<string>, List<string>>(constraints, typesUsed);
+        }
+
         /*
 		public override int GetDeBruijnIndex(string name = "")
 		{
@@ -77,7 +89,7 @@
 		}
         */
 
-		public override string ToString()
+        public override string ToString()
 		{
 			return Name;
 		}

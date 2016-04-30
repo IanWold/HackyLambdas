@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace HackyLambdas
 {
@@ -78,11 +79,21 @@ namespace HackyLambdas
             return Output.GetTermType();
         }
 
-        public override List<string> GenConstraints()
+        public override Tuple<List<string>, List<string>> GenConstraints()
         {
-            List<string> constraints = Output.GenConstraints();
+            Tuple<List<string>, List<string>> constraintsAndTypesUsed = Output.GenConstraints();
+            List<string> constraints = constraintsAndTypesUsed.Item1;
+            List<string> typesUsed = constraintsAndTypesUsed.Item2;
+            
+            // Generate a new constraint variable that is not yet used
+            int i;
+            for (i = 0; typesUsed.Contains("C" + i); i++) ;
+            TermType = new LambdaTypeVariable("C" + i);
 
-            return constraints;
+            constraints.Add(String.Format("{0}={1}>{2}", TermType, Input.TermType, Output.TermType));
+            typesUsed.Add(TermType.ToString());
+
+            return new Tuple<List<string>, List<string>>(constraints, typesUsed);
         }
 
         /// <summary>
