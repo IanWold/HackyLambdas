@@ -56,5 +56,10 @@ namespace HackyLambdas
 		{
 			return Root.ToString();
 		}
+
+		public override string PrintDeBruijn()
+		{
+			return Root.PrintDeBruijn();
+		}
 	}
 }

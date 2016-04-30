@@ -14,9 +14,9 @@
 
 		public virtual bool IsBound(string variable) { return false; }
 
-		public virtual void MakeAlphaEquivalent(LambdaTerm term) { }
-
 		public virtual int GetDeBruijnIndex(string name = "") { return -1; }
+
+		public virtual string PrintDeBruijn() { return null; }
 
 		internal virtual void Replace(LambdaVariable what, LambdaTerm with) { }
 	}

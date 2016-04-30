@@ -17,7 +17,7 @@ namespace HackyLambdas
 
 		public override string ToString()
 		{
-			return Name;
+			return Name;// == null ? "" : Name;
 		}
 	}
 }
