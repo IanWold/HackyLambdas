@@ -7,8 +7,10 @@ namespace HackyLambdas
 	{
 		//The name of the variable, believe it or not
 		public string Name;
+        public bool IsFree = false;
+        public bool IsDefinition = false;
 
-		public LambdaVariable(string name)
+        public LambdaVariable(string name)
 		{
 			Name = name;
 		}
@@ -34,13 +36,23 @@ namespace HackyLambdas
                 return;
             }
 
+            // try to find a variable type already used if exists
+            foreach (LambdaVariable var in freeTypesUsed)
+            {
+                if (Name == var.Name)
+                {
+                    TermType = var.TermType;
+                    IsFree = true;
+                    return;
+                }
+            }
 
             // generate new variable type name
             int i;
             for (i = 0; typesUsed.Contains("T" + i); i++) ;
             TermType = new LambdaTypeVariable("T" + i);
+            IsFree = true;
             typesUsed.Add(TermType.ToString());
-
             freeTypesUsed.Add(this);
         }
 
@@ -115,7 +127,7 @@ namespace HackyLambdas
 
         public override string ToString()
 		{
-			return Name + ":" + TermType?.ToString() ?? "?";
+			return Name + (IsFree || IsDefinition ? (":" + TermType?.ToString() ?? "?") : "");
 		}
 
 		public override string PrintDeBruijn()

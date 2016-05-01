@@ -18,6 +18,7 @@ namespace HackyLambdas
 
 			Input = input;
 			Output = output;
+            Input.IsDefinition = true;
 
             output.SetType(input);
 		}
