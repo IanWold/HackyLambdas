@@ -69,18 +69,22 @@ namespace HackyLambdas
 
 					var inp = LambdaParser.ParseLine(input);
 					inp.BetaReduce();
-                    List<string> constraints = inp.GenConstraints().Item1;
+                    List<string> constraints = inp.GenConstraints()?.Item1 ?? null;
 
 					Console.WriteLine("~> " + inp);
 					log += "\r\n~> " + inp;
-                    Console.WriteLine("Cons: ");
-                    log += "\r\nCons:";
-                    foreach (string con in constraints)
-                    {
-                        log += "\r\n" + con;
-                        Console.WriteLine(con);
-                    }
-                    log += "\r\n";
+
+					if (constraints != null)
+					{
+						Console.WriteLine("Cons: ");
+						log += "\r\nCons:";
+						foreach (string con in constraints)
+						{
+							log += "\r\n" + con;
+							Console.WriteLine(con);
+						}
+						log += "\r\n";
+					}
                 }
             }
 		}
