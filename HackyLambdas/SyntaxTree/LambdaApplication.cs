@@ -158,7 +158,7 @@ namespace HackyLambdas
             for (i = 0; typesUsed.Contains("C" + i); i++);
             TermType = new LambdaTypeVariable("C" + i);
 
-            constraints.Add(String.Format("{0}={1}>{2}", First.TermType, Second.TermType, TermType));
+            constraints.Add(String.Format("{0}={1}>{2} {3}", First.TermType, Second.TermType, TermType, ToString()));
             typesUsed.Add(TermType.ToString());
 
             return new Tuple<List<string>, List<string>>(constraints, typesUsed);

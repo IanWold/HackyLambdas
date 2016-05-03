@@ -73,12 +73,16 @@ namespace HackyLambdas
 
 					Console.WriteLine("~> " + inp);
 					log += "\r\n~> " + inp;
-                    Console.WriteLine("Cons: ");
-                    log += "\r\nCons:";
-                    foreach (string con in constraints)
+
+                    if (constraints.Count > 0)
                     {
-                        log += "\r\n" + con;
-                        Console.WriteLine(con);
+                        Console.WriteLine("Constraints: ");
+                        log += "\r\nConstraints:";
+                        foreach (string con in constraints)
+                        {
+                            log += "\r\n" + con;
+                            Console.WriteLine(con);
+                        }
                     }
                     log += "\r\n";
                 }
