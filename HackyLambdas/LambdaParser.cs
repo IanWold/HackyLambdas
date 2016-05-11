@@ -109,7 +109,7 @@ namespace HackyLambdas
 		/// <returns>The Church-encoded LambdaTerm</returns>
 		static LambdaTerm GetNumber(int toGet)
 		{
-			var lambdaNumber = "(\\f.\\a.";
+			var lambdaNumber = "(\\f:b>b.\\a:b.";
 			for (int i = 1; i <= toGet; i++)
 			{
 				lambdaNumber += "(f ";
