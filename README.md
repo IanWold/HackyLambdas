@@ -11,7 +11,7 @@ Using it
 HackyLambdas can do several things. First, it can beta-reduce and compute typing constraints for simply typed lambda calculus terms. In place of a lambda, a backslash is used. For example, one could input the following:
 
 ```
->: (\x:a.x) y
+>: (\x.x) y
 ```
 
 And HackyLambdas will beta-reduce it, as well as compute the typing constraints on the term.
@@ -19,7 +19,7 @@ And HackyLambdas will beta-reduce it, as well as compute the typing constraints 
 You can define terms with HackyLambdas:
 
 ```
->: true = \a:a.\b:b.a
+>: true = \a.\b.a
 ```
 
 You can type in integers, and they will be translated into Church-encoded numerals automagically:
@@ -32,15 +32,15 @@ HackyLambdas can convert any LC term to its corresponding DeBruijn notation:
 
 ```
 >: debruijn
-db>: \x:a.x
+db>: \x.x
 ```
 
 And HackyLambdas can check for alpha-equivalence between any two terms
 
 ```
 >: alpha
-a1>: \x:a.x
-a2>: \y:b.y
+a1>: \x.x
+a2>: \y.y
 ```
 
 Captivating
