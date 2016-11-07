@@ -69,7 +69,7 @@ namespace HackyLambdas
 
 					var inp = LambdaParser.ParseLine(input);
 					inp.BetaReduce();
-                    List<string> constraints = inp.GenConstraints()?.Item1;
+                    List<string> constraints = inp.GenConstraints()?.Item1 ?? new List<string>();
 
 					Console.WriteLine("~> " + inp);
 					log += "\r\n~> " + inp;
