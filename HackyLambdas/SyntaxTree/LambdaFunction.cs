@@ -19,22 +19,7 @@ namespace HackyLambdas
 			Input = input;
 			Output = output;
             Input.IsDefinition = true;
-
-            output.SetType(input);
 		}
-
-        public override void SetFreeType(List<string> typesUsed, List<LambdaVariable> freeTypesUsed)
-        {
-            Input.SetFreeType(typesUsed, freeTypesUsed);
-            Output.SetFreeType(typesUsed, freeTypesUsed);
-        }
-
-        public override List<string> GetTypesUsed()
-        {
-            List<string> typesUsed = Input.GetTypesUsed();
-            typesUsed.AddRange(Output.GetTypesUsed());
-            return typesUsed;
-        }
 
         /// <summary>
         /// If the function gets a call to perform a beta-reduce, just pass it on
@@ -75,28 +60,6 @@ namespace HackyLambdas
 		{
 			Output.Replace(what, with);
 		}
-
-        public override LambdaType GetTermType()
-        {
-            return Output.GetTermType();
-        }
-
-        public override Tuple<List<string>, List<string>> GenConstraints()
-        {
-            Tuple<List<string>, List<string>> constraintsAndTypesUsed = Output.GenConstraints();
-            List<string> constraints = constraintsAndTypesUsed.Item1;
-            List<string> typesUsed = constraintsAndTypesUsed.Item2;
-            
-            // Generate a new constraint variable that is not yet used
-            int i;
-            for (i = 0; typesUsed.Contains("C" + i); i++) ;
-            TermType = new LambdaTypeVariable("C" + i);
-
-            constraints.Add(String.Format("{0}={1}>{2} {3}", TermType, Input.TermType, Output.TermType, ToString()));
-            typesUsed.Add(TermType.ToString());
-
-            return new Tuple<List<string>, List<string>>(constraints, typesUsed);
-        }
 
         public override int GetDeBruijnIndex(string name = "")
 		{

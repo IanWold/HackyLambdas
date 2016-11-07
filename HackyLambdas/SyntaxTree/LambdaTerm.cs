@@ -11,14 +11,6 @@ namespace HackyLambdas
 	{
 		public LambdaTerm Parent = null;
 
-		public LambdaType TermType = null;
-
-        public virtual void SetType(LambdaVariable varName) { }
-
-        public virtual void SetFreeType(List<string> typesUsed, List<LambdaVariable> freeTypesUsed) { }
-
-        public virtual List<string> GetTypesUsed() { return null; }
-
         public virtual bool BetaReduce() { return false; }
 
 		public virtual bool IsBound(string variable) { return false; }
@@ -28,9 +20,5 @@ namespace HackyLambdas
 		public virtual string PrintDeBruijn() { return null; }
 
 		internal virtual void Replace(LambdaVariable what, LambdaTerm with) { }
-
-        public virtual LambdaType GetTermType() { return TermType; }
-
-        public virtual Tuple<List<string>, List<string>> GenConstraints() { return null; }
     }
 }

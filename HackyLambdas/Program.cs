@@ -14,7 +14,7 @@ namespace HackyLambdas
 			var initialTerms = "";
 			using (var reader = new StreamReader(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\Definitions.txt"))
 			{
-				//initialTerms = reader.ReadToEnd();
+				initialTerms = reader.ReadToEnd();
 			}
 
 			foreach (var t in initialTerms.Split(new char[] { '\r', '\n'}))
@@ -69,21 +69,9 @@ namespace HackyLambdas
 
 					var inp = LambdaParser.ParseLine(input);
 					inp.BetaReduce();
-                    List<string> constraints = inp.GenConstraints()?.Item1;
 
 					Console.WriteLine("~> " + inp);
 					log += "\r\n~> " + inp;
-
-                    if (constraints.Count > 0)
-                    {
-                        Console.WriteLine("Constraints: ");
-                        log += "\r\nConstraints:";
-                        foreach (string con in constraints)
-                        {
-                            log += "\r\n" + con;
-                            Console.WriteLine(con);
-                        }
-                    }
                     log += "\r\n";
                 }
             }

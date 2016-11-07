@@ -14,8 +14,6 @@ namespace HackyLambdas
 		{
 			root.Parent = this;
 			Root = root;
-
-            Root.SetFreeType(Root.GetTypesUsed(), new List<LambdaVariable>());
 		}
 
 		public override bool BetaReduce()
@@ -42,16 +40,6 @@ namespace HackyLambdas
 		{
 			Root.Replace(what, with);
 		}
-
-        public override LambdaType GetTermType()
-        {
-            return Root.GetTermType();
-        }
-
-        public override Tuple<List<string>, List<string>> GenConstraints()
-        {
-            return Root.GenConstraints();
-        }
 
         private List<string> FreeVariables = new List<string>();
 

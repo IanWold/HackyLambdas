@@ -15,57 +15,6 @@ namespace HackyLambdas
 			Name = name;
 		}
 
-		public LambdaVariable(string name, LambdaType termType)
-		{
-			Name = name;
-			TermType = termType;
-		}
-
-        public override void SetType(LambdaVariable varName)
-        {
-            if (Name == varName.Name)
-            {
-                TermType = varName.TermType;
-            }
-        }
-
-        public override void SetFreeType(List<string> typesUsed, List<LambdaVariable> freeTypesUsed)
-        {
-            if (TermType != null)
-            {
-                return;
-            }
-
-            // try to find a variable type already used if exists
-            foreach (LambdaVariable var in freeTypesUsed)
-            {
-                if (Name == var.Name)
-                {
-                    TermType = var.TermType;
-                    IsFree = true;
-                    return;
-                }
-            }
-
-            // generate new variable type name
-            int i;
-            for (i = 0; typesUsed.Contains("T" + i); i++) ;
-            TermType = new LambdaTypeVariable("T" + i);
-            IsFree = true;
-            typesUsed.Add(TermType.ToString());
-            freeTypesUsed.Add(this);
-        }
-
-        public override List<string> GetTypesUsed()
-        {
-            List<string> typesUsed = new List<string>();
-            if (TermType != null)
-            {
-                typesUsed.Add(TermType.ToString());
-            }
-            return typesUsed;
-        }
-
         public bool IsBound()
 		{
 			return Parent == null ? false : Parent.IsBound(Name);
@@ -105,20 +54,6 @@ namespace HackyLambdas
 				}
 			}
 		}
-
-        public override LambdaType GetTermType()
-        {
-            return TermType;
-        }
-
-        public override Tuple<List<string>, List<string>> GenConstraints()
-        {
-            List<string> constraints = new List<string>();
-            List<string> typesUsed = new List<string>();
-            typesUsed.Add(TermType.ToString());
-
-            return new Tuple<List<string>, List<string>>(constraints, typesUsed);
-        }
 		
 		public override int GetDeBruijnIndex(string name = "")
 		{
@@ -127,7 +62,7 @@ namespace HackyLambdas
 
         public override string ToString()
 		{
-			return Name + (IsFree || IsDefinition ? (":" + TermType?.ToString() ?? "?") : "");
+			return Name;
 		}
 
 		public override string PrintDeBruijn()

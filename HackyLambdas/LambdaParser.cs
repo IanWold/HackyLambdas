@@ -49,25 +49,11 @@ namespace HackyLambdas
 		//Parses a single letter into a LambdaVariable
 		static readonly Parser<LambdaVariable> LVariable = Parse.Letter.Once().Text().Select(s => new LambdaVariable(s));
 
-		static readonly Parser<LambdaType> LTypeVariable = Parse.Letter.Once().Text().Select(s => new LambdaTypeVariable(s));
-
-		static readonly Parser<LambdaType> LTypeFactor =
-			(from lparen in Parse.Char('(')
-			 from term in Parse.Ref(() => LType)
-			 from rparen in Parse.Char(')')
-			 select term)
-			.Or(LTypeVariable);
-		
-		static readonly Parser<LambdaType> LType =
-			Parse.ChainRightOperator(Parse.Char('>'), LTypeFactor, (op, first, second) => new LambdaTypeArrow(first, second));
-
 		//Parses the "input" part of a lambda function
 		static readonly Parser<LambdaVariable> LDeclaration =
 			from lam in Parse.Char('\\')
 			from lVar in LVariable
-			from colon in Parse.Char(':')
-			from lType in LType
-			select new LambdaVariable(lVar.Name, lType);
+			select new LambdaVariable(lVar.Name);
 
 		//Parses a term in parentheses or several other parsers above
 		static readonly Parser<LambdaTerm> LFactor =
@@ -109,7 +95,7 @@ namespace HackyLambdas
 		/// <returns>The Church-encoded LambdaTerm</returns>
 		static LambdaTerm GetNumber(int toGet)
 		{
-			var lambdaNumber = "(\\f:b>b.\\a:b.";
+			var lambdaNumber = "(\\f.\\a.";
 			for (int i = 1; i <= toGet; i++)
 			{
 				lambdaNumber += "(f ";

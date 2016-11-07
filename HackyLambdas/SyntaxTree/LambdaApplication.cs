@@ -20,25 +20,6 @@ namespace HackyLambdas
 			Second = second;
 		}
 
-        public override void SetType(LambdaVariable varName)
-        {
-            First.SetType(varName);
-            Second.SetType(varName);
-        }
-
-        public override void SetFreeType(List<string> typesUsed, List<LambdaVariable> freeTypesUsed)
-        {
-            First.SetFreeType(typesUsed, freeTypesUsed);
-            Second.SetFreeType(typesUsed, freeTypesUsed);
-        }
-
-        public override List<string> GetTypesUsed()
-        {
-            List<string> typesUsed = First.GetTypesUsed();
-            typesUsed.AddRange(Second.GetTypesUsed());
-            return typesUsed;
-        }
-
         /// <summary>
         /// Recursively tells First and Second to b-reduce, then beta reduces this application
         /// </summary>
@@ -125,44 +106,6 @@ namespace HackyLambdas
 		{
 			return Parent == null ? false : Parent.IsBound(variable);
 		}
-
-        public override LambdaType GetTermType()
-        {
-            LambdaType firstTermType = First.GetTermType();
-            if (firstTermType.GetType() == typeof(LambdaTypeArrow))
-            {
-                LambdaTypeArrow firstTermTypeArrow = firstTermType as LambdaTypeArrow;
-                return firstTermTypeArrow.Second;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public override Tuple<List<string>, List<string>> GenConstraints()
-        {
-            Tuple<List<string>, List<string>> firstConstraintsAndTypesUsed = First.GenConstraints();
-            List<string> constraints = firstConstraintsAndTypesUsed.Item1;
-            List<string> typesUsed = firstConstraintsAndTypesUsed.Item2;
-
-            Tuple<List<string>, List<string>> secondConstraintsAndTypesUsed = First.GenConstraints();
-            List<string> secondConstraints = secondConstraintsAndTypesUsed.Item1;
-            List<string> secondTypesUsed = secondConstraintsAndTypesUsed.Item2;
-
-            constraints.AddRange(secondConstraints);
-            typesUsed.AddRange(secondTypesUsed);
-
-            // Generate a new constraint variable that is not yet used for this var
-            int i;
-            for (i = 0; typesUsed.Contains("C" + i); i++);
-            TermType = new LambdaTypeVariable("C" + i);
-
-            constraints.Add(String.Format("{0}={1}>{2} {3}", First.TermType, Second.TermType, TermType, ToString()));
-            typesUsed.Add(TermType.ToString());
-
-            return new Tuple<List<string>, List<string>>(constraints, typesUsed);
-        }
 
 		public override int GetDeBruijnIndex(string name = "")
 		{
